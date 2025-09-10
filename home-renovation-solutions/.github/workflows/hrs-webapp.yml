@@ -1,4 +1,4 @@
-name: Build and deploy JAR app to Azure Web App - hrs-webapp
+name: Build and deploy WAR app to Azure Web App - hrs-webapp
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: target/*.jar
+          path: target/*.war
 
   deploy:
     runs-on: ubuntu-latest
@@ -46,5 +46,5 @@ jobs:
         with:
           app-name: 'hrs-webapp'  # Your Azure Web App name
           slot-name: 'Production'
-          package: '*.jar'
+          package: '*.war'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}

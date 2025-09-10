@@ -34,7 +34,7 @@
   
   
   <build>
-  	<finalName>app</finalName>
+  	<finalName>ROOT</finalName>
   	<plugins>
   		<plugin>
   <groupId>com.spotify</groupId>

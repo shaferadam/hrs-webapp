@@ -1,4 +1,4 @@
-name: Build and deploy WAR app to Azure Web App - hrs-webapp
+name: Build and deploy WAR app to Azure Web App - hrs-webapp   #trigget test
 
 on:
   push:

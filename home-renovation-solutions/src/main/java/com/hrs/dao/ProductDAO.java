@@ -1,6 +1,8 @@
 package com.hrs.dao;
 import java.sql.*;
+
 import java.util.*;
+
 
 public class ProductDAO {
 	private static final String DB_URL = "jdbc:mysql://db:3306/hrs_db";

@@ -1,11 +1,11 @@
 package com.hrs.dao;
 import java.sql.*;
 
-import java.util.*; //small changes 
+import java.util.*; 
 
 
 public class ProductDAO {
-	private static final String DB_URL = "jdbc:mysql://db:3306/hrs_db";
+	private static final String DB_URL = "String url = \"jdbc:mysql://hrs-webapp-server.mysql.database.azure.com:3306/hrs-webapp-database?useSSL=true&requireSSL=true";
 	private static final String DB_USER = "root";
     private static final String DB_PASS = "3w$Ac_K4Cr";
 

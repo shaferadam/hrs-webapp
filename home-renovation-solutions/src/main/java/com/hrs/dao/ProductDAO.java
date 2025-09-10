@@ -1,7 +1,7 @@
 package com.hrs.dao;
 import java.sql.*;
 
-import java.util.*;
+import java.util.*; //small change
 
 
 public class ProductDAO {

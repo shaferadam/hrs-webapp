@@ -1,0 +1,11 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         version="4.0">
+  <servlet>
+    <servlet-name>ProductServlet</servlet-name>
+    <servlet-class>com.hrs.servlet.ProductServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductServlet</servlet-name>
+    <url-pattern>/addProduct</url-pattern>
+  </servlet-mapping>
+</web-app>

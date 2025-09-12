@@ -29,7 +29,7 @@ jobs:
           DB_PASSWORD: "i711i9$BTUsxZJv3"
           DB_NAME: hrs-webapp-database
         run: |
-          mysql -h $DB_HOST -u $DB_USER -p$DB_PASSWORD $DB_NAME < sql/init.sql
+          mysql -h $DB_HOST -u $DB_USER -p"$DB_PASSWORD" $DB_NAME < sql/init.sql
 
       - name: Build WAR with Maven
         working-directory: home-renovation-solutions
@@ -52,13 +52,14 @@ jobs:
           name: hrs-webapp
           path: .
 
-      - name: Locate WAR file
-        id: locate
+      - name: Locate and Rename WAR file to ROOT.war
+        id: rename
         run: |
-          echo "Searching for WAR file..."
-          find . -name "*.war"
+          echo "Renaming WAR file to ROOT.war for root context deployment..."
           WAR_PATH=$(find . -name "*.war" | head -n 1)
-          echo "WAR_PATH=$WAR_PATH" >> $GITHUB_ENV
+          cp "$WAR_PATH" ROOT.war
+          echo "WAR_PATH=ROOT.war" >> $GITHUB_ENV
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:

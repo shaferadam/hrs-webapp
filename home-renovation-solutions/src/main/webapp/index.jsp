@@ -33,6 +33,26 @@
         <form action="addProduct.jsp" method="get" style="display:inline;">
             <button class="nav-button">Add Product</button>
         </form>
+        
+        <form method="post">
+    		<button type="submit" name="dbtest">🔍 Test DB Connection</button>
+		</form>
+		
+		<%@ page import="com.hrs.dao.ProductDAO" %>
+		<%@ page import="java.io.PrintWriter" %>
+
+<%
+    if (request.getParameter("dbtest") != null) {
+        ProductDAO dao = new ProductDAO();
+        String result = dao.verifyConnection();
+%>
+        <div style="margin-top:10px; font-weight:bold;">
+            <%= result %>
+        </div>
+<%
+    }
+%>
+
     </div>
 </body>
 </html>

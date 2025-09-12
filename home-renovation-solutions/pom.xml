@@ -28,10 +28,12 @@
 	
 	
 	<dependency>
- 		<groupId>com.microsoft.sqlserver</groupId>
+  		<groupId>com.microsoft.sqlserver</groupId>
   		<artifactId>mssql-jdbc</artifactId>
-  		<version>12.2.0.jre11</version> <!-- Match your JDK version -->
+  		<version>12.2.0.jre8</version>
+  		<scope>compile</scope>
 	</dependency>
+
 
 	
 	

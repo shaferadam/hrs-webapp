@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/addProduct")
+
 public class ProductServlet extends HttpServlet {
 
     private ProductDAO productDAO = new ProductDAO();

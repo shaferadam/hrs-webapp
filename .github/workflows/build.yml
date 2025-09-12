@@ -1,16 +1,13 @@
-name: Build and deploy WAR app to Azure Web App - hrs-webapp   #trigget test
+name: Build and Initialize Web App
 
 on:
   push:
     branches:
-      - master  # Change to 'master' if that's your default branch
-  workflow_dispatch:
+      - master
 
 jobs:
-  build:
+  build-and-init:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
       - name: Checkout code
@@ -19,32 +16,63 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
+          distribution: 'temurin'
           java-version: '8'
-          distribution: 'temurin'  # Use 'temurin' for Java 8 support
 
-      - name: Build with Maven
-        run: mvn clean install
+      # Removed MySQL client and initialization steps
 
-      - name: Upload artifact
+      # Optional: Initialize Azure SQL schema via JDBC or CLI
+      # You can add a script here that connects using Entra auth and runs init.sql
+      # Or use a separate deployment step via Azure CLI or Data Studio
+
+      - name: Build WAR with Maven
+        working-directory: home-renovation-solutions
+        run: mvn clean package
+
+      - name: Upload WAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: java-app
-          path: target/*.war
+          name: hrs-webapp
+          path: home-renovation-solutions/target/*.war
 
   deploy:
+    needs: build-and-init
     runs-on: ubuntu-latest
-    needs: build
 
     steps:
-      - name: Download artifact
+      - name: Checkout code (for startup.sh)
+        uses: actions/checkout@v4
+
+      - name: Download WAR artifact
         uses: actions/download-artifact@v4
         with:
-          name: java-app
+          name: hrs-webapp
+          path: .
+
+      - name: Ensure WAR is named ROOT.war
+        id: ensure-root-war
+        run: |
+          WAR_PATH=$(find . -name "*.war" | head -n 1)
+          if [[ "$(basename "$WAR_PATH")" != "ROOT.war" ]]; then
+            echo "Renaming $WAR_PATH to ROOT.war for root context deployment..."
+            cp "$WAR_PATH" ROOT.war
+          else
+            echo "WAR is already named ROOT.war. No rename needed."
+          fi
+          echo "WAR_PATH=ROOT.war" >> $GITHUB_ENV
+
+      - name: Prepare deployment folder
+        run: |
+          mkdir ROOT-startup
+          cp ROOT.war ROOT-startup/ROOT.war
+          cp startup.sh ROOT-startup/startup.sh
 
       - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-deploy@v2
         with:
-          app-name: 'hrs-webapp'  # Your Azure Web App name
-          slot-name: 'Production'
-          package: '*.war'
+          app-name: hrs-webapp
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ROOT-startup
+
+      
+      

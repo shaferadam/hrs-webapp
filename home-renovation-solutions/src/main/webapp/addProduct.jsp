@@ -6,10 +6,12 @@
 <body>
     <h2>Add New Product</h2>
     <form action="addProduct" method="post">
-        Name: <input type="text" name="name"><br>
-        Description: <input type="text" name="description"><br>
-        Price: <input type="text" name="price"><br>
-        Quantity: <input type="text" name="quantity"><br>
+        Model: <input type="text" name="Model"><br>
+        Serial: <input type="text" name="Serial"><br>
+        Brand: <input type="text" name="Brand"><br>
+        Description: <input type="text" name="Description"><br>
+        Cost: <input type="text" name="Cost"><br>
+        List_Price: <input type="text" name="List_Price"><br>
         <input type="submit" value="Add Product">
     </form>
 </body>

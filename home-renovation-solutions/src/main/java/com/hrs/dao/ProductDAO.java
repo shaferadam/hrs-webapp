@@ -48,7 +48,7 @@ public class ProductDAO {
                 product.put("Model", rs.getString("Model"));
                 product.put("Serial", rs.getString("Serial"));
                 product.put("Brand", rs.getString("Brand"));
-                product.put("Description", rs.getString("ProductQuantity"));
+                product.put("Description", rs.getString("Description"));
                 product.put("Cost", rs.getDouble("Cost"));
                 product.put("List_Price", rs.getDouble("List_Price"));
                 products.add(product);

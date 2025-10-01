@@ -24,8 +24,8 @@
             <td><%= p.get("Serial") %></td>
             <td><%= p.get("Brand") %></td>
             <td><%= p.get("Description") %></td>
-            <td><%= p.get("Cost") %></td>
-            <td><%= p.get("List_Price") %></td>
+            <td><%= String.format("$%.2f", p.get("Cost")) %></td>
+			<td><%= String.format("$%.2f", p.get("List_Price")) %></td>
         </tr>
         <% } %>
     </table>

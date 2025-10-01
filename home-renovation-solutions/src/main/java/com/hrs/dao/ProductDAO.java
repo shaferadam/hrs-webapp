@@ -23,7 +23,7 @@ public class ProductDAO {
     }
 
     public void addProduct(String Model, String Serial, String Brand, String Description, double Cost, double List_Price) throws SQLException {
-        String sql = "INSERT INTO products_new (Model,Serial,Brand,Description,Cost,List_Price) VALUES (?, ?, ?, ?,?,?)";
+        String sql = "INSERT INTO products (Model,Serial,Brand,Description,Cost,List_Price) VALUES (?, ?, ?, ?,?,?)";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, Model);
@@ -38,7 +38,7 @@ public class ProductDAO {
 
     public List<Map<String, Object>> getAllProducts() throws SQLException {
         List<Map<String, Object>> products = new ArrayList<>();
-        String sql = "SELECT * FROM products_new";
+        String sql = "SELECT * FROM products";
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {

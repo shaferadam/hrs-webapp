@@ -22,31 +22,35 @@ public class ProductDAO {
         return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
     }
 
-    public void addProduct(String name, String description, double price, int quantity) throws SQLException {
-        String sql = "INSERT INTO products (ProductName, ProductDescription, ProductPrice, ProductQuantity) VALUES (?, ?, ?, ?)";
+    public void addProduct(String Model, String Serial, String Brand, String Description, double Cost, double List_Price) throws SQLException {
+        String sql = "INSERT INTO products_new (Model,Serial,Brand,Description,Cost,List_Price) VALUES (?, ?, ?, ?,?,?)";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, name);
-            stmt.setString(2, description);
-            stmt.setDouble(3, price);
-            stmt.setInt(4, quantity);
+            stmt.setString(1, Model);
+            stmt.setString(2, Serial);
+            stmt.setString(3, Brand);
+            stmt.setString(4, Description);
+            stmt.setDouble(5, Cost);
+            stmt.setDouble(6, List_Price);
             stmt.executeUpdate();
         }
     }
 
     public List<Map<String, Object>> getAllProducts() throws SQLException {
         List<Map<String, Object>> products = new ArrayList<>();
-        String sql = "SELECT * FROM products";
+        String sql = "SELECT * FROM products_new";
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Map<String, Object> product = new HashMap<>();
                 product.put("ProductID", rs.getInt("ProductID"));
-                product.put("ProductName", rs.getString("ProductName"));
-                product.put("ProductDescription", rs.getString("ProductDescription"));
-                product.put("ProductPrice", rs.getDouble("ProductPrice"));
-                product.put("ProductQuantity", rs.getInt("ProductQuantity"));
+                product.put("Model", rs.getString("Model"));
+                product.put("Serial", rs.getString("Serial"));
+                product.put("Brand", rs.getString("Brand"));
+                product.put("Description", rs.getString("ProductQuantity"));
+                product.put("Cost", rs.getDouble("Cost"));
+                product.put("List_Price", rs.getDouble("List_Price"));
                 products.add(product);
             }
         }
@@ -57,12 +61,12 @@ public class ProductDAO {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-                return "✅ Connection successful to hrs-db.";
+                return "Connection successful to hrs-db.";
             }
         } catch (ClassNotFoundException e) {
-            return "❌ JDBC Driver not found: " + e.getMessage();
+            return "JDBC Driver not found: " + e.getMessage();
         } catch (SQLException e) {
-            return "❌ Connection failed: " + e.getMessage();
+            return "Connection failed: " + e.getMessage();
         }
     }
 

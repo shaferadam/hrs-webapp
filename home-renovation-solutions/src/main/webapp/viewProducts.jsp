@@ -21,10 +21,11 @@
         %>
         <tr>
             <td><%= p.get("ProductID") %></td>
-            <td><%= p.get("ProductName") %></td>
-            <td><%= p.get("ProductDescription") %></td>
-            <td><%= p.get("ProductPrice") %></td>
-            <td><%= p.get("ProductQuantity") %></td>
+            <td><%= p.get("Serial") %></td>
+            <td><%= p.get("Brand") %></td>
+            <td><%= p.get("Description") %></td>
+            <td><%= p.get("Cost") %></td>
+            <td><%= p.get("List_Price") %></td>
         </tr>
         <% } %>
     </table>

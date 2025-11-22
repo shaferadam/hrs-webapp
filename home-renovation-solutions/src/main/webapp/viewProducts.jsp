@@ -14,7 +14,7 @@
     <h2>All Products</h2>
     <table border="1">
         <tr>
-            <th>ProductID</th><th>Serial;</th><th>Brand</th><th>Description</th><th>Cost</th><th>List_Price</th>
+            <th>ProductID</th><th>Serial</th><th>Brand</th><th>Description</th><th>Cost</th><th>List_Price</th>
         </tr>
         <%
             for (Map<String, Object> p : products) {
